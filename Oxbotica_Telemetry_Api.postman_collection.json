@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "3161cfc2-2a5f-4ccb-87d8-187c05e12fed",
+		"name": "Oxbotica_Telemetry_Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/telemetry-data (valid parameters)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5159474-3924-4866-9f9b-1edd29c29e48",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(responseHeaders[\"Content-Type\"]).to.eql('application/json');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is json\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Json response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    // test log entry",
+							"    pm.expect(jsonData.log).to.eql(\"2017-02-20-14-42-25-outdoor-autonomy-02\");",
+							"    ",
+							"    // test start and end entries",
+							"    pm.expect(jsonData.start).to.eql(parseInt(pm.variables.get(\"valid_start\"), 10));",
+							"    pm.expect(jsonData.end).to.eql(parseInt(pm.variables.get(\"valid_end\"), 10));",
+							"    ",
+							"    // test data entry",
+							"    pm.expect(JSON.parse(jsonData.data).length).to.eql(9);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 350ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/telemetry-data?start={{valid_start}}&end={{valid_end}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"telemetry-data"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "{{valid_start}}"
+						},
+						{
+							"key": "end",
+							"value": "{{valid_end}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/telemetry-data (start > end)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5159474-3924-4866-9f9b-1edd29c29e48",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(responseHeaders[\"Content-Type\"]).to.eql('application/json');",
+							"});",
+							"",
+							"pm.test(\"Response is json\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Json response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    // test log entry",
+							"    pm.expect(jsonData.log).to.eql(\"2017-02-20-14-42-25-outdoor-autonomy-02\");",
+							"    ",
+							"    // test start and end entries",
+							"    pm.expect(jsonData.start).to.eql(parseInt(pm.variables.get(\"bigger_than_end\"), 10));",
+							"    pm.expect(jsonData.end).to.eql(parseInt(pm.variables.get(\"valid_end\"), 10));",
+							"    ",
+							"    // test data entry",
+							"    pm.expect(JSON.parse(jsonData.data).length).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/telemetry-data?start={{bigger_than_end}}&end={{valid_end}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"telemetry-data"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "{{bigger_than_end}}"
+						},
+						{
+							"key": "end",
+							"value": "{{valid_end}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/telemetry-data (invalid parameter)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5159474-3924-4866-9f9b-1edd29c29e48",
+						"exec": [
+							"pm.test(\"Status code is 400 (Bad request)\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is json\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(responseHeaders[\"Content-Type\"]).to.eql('application/json');",
+							"});",
+							"",
+							"pm.test(\"Error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message.start).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/telemetry-data?start={{invalid_start}}&end={{valid_end}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"telemetry-data"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "{{invalid_start}}"
+						},
+						{
+							"key": "end",
+							"value": "{{valid_end}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "695800dc-d9a7-4ba1-b0e2-e894f4c5e1dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e5ceaff8-0dc3-4252-ab8f-e9f19aabbed6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "531154c8-352e-477c-a6d6-104674b33e5e",
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"id": "ae3ff845-51bd-4141-991e-763dfb72ca1b",
+			"key": "valid_start",
+			"value": "1487601759486376",
+			"type": "string"
+		},
+		{
+			"id": "2c8fc427-46ed-4d07-840a-4d2b614192f5",
+			"key": "valid_end",
+			"value": "1487601761591361",
+			"type": "string"
+		},
+		{
+			"id": "5dbbf322-b6dd-425e-8d84-e963356dcd23",
+			"key": "bigger_than_end",
+			"value": "1487601762131744",
+			"type": "string"
+		},
+		{
+			"id": "8cb60b91-7a3e-45a0-9b24-d8f4201864c1",
+			"key": "invalid_start",
+			"value": "null",
+			"type": "string"
+		}
+	]
+}
