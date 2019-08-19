@@ -25,7 +25,11 @@ See Youtube video for guidance: https://youtu.be/AYa9gr7PxhM
 
 2.  Import Oxbotica_Telemetry_Data_Api.postman_collection.json file from this repository into Postman
 
-3.  Run the Oxbotica_Telemetry_Data_Api collection
+3.  Run the server
+
+    > python app.py
+
+4.  Run the Oxbotica_Telemetry_Data_Api collection
 
 #### Notes
 
