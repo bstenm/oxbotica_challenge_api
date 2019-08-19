@@ -10,11 +10,16 @@
 
    > cd oxbotica_challenge_api
 
-3. install dependecies
+3. create and activate a virtual env
+
+   > virtualenv venv
+   > source venv/bin/activate
+
+4. install dependecies
 
    > pip install flask flask-restful flask-cors pandas
 
-4. run it
+5. run it
    > python app.py
 
 #### Test it
