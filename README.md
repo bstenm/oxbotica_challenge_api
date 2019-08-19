@@ -19,7 +19,7 @@
 
 #### Test it
 
-See Youtube video for guidance: https://youtu.be/AYa9gr7PxhM
+See Youtube video for guidance: https://youtu.be/i_ze5WTygek
 
 1.  Get [Postman](https://www.getpostman.com/)
 
