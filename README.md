@@ -1,25 +1,17 @@
-[Oxbotica Challenge Api](https://github.com/bstenm/oxbotica_challenge_api) built with [Flask Restful](https://github.com/flask-restful/flask-restful/).
+Python Api built with [Flask Restful](https://github.com/flask-restful/flask-restful/) to serve [React Charts Experiment](https://github.com/bstenm/react_charts_experiment).
 
 #### Run it
 
-1. clone this repository
-
-   > git clone git@github.com:bstenm/oxbotica_challenge_api.git
-
-2. cd into the repository
-
-   > cd oxbotica_challenge_api
-
-3. create and activate a virtual env
+1. create and activate a virtual env
 
    > virtualenv venv
    > source venv/bin/activate
 
-4. install dependecies
+2. install dependecies
 
    > pip install flask flask-restful flask-cors pandas
 
-5. run it
+3. run it
    > python app.py
 
 #### Test it
